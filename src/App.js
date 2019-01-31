@@ -1,3 +1,6 @@
+import React from 'react'
+import Course from './components/Course'
+
 const App = () => {
   const course = {
     name: 'Half Stack -sovelluskehitys',
@@ -16,7 +19,7 @@ const App = () => {
         name: 'Komponenttien tila',
         exercises: 14,
         id: 3
-      }
+      },
     ]
   }
 
