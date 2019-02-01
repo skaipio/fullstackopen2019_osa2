@@ -12,6 +12,14 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
+
+    const indexofPerson = persons.findIndex(person => person.name === newName)
+
+    if (indexofPerson >= 0) {
+      alert(`${newName} on jo luettelossa`)
+      return
+    }
+
     const newPerson = {
       name: newName
     }
