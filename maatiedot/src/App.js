@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Countries from './components/Countries'
 import Country from './components/Country'
+import Weather from './components/Weather'
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -40,7 +41,13 @@ const App = () => {
     }
 
     if (filteredCountries.length === 1) {
-      return <Country country={filteredCountries[0]} />
+      const country = filteredCountries[0]
+      return (
+        <div>
+          <Country country={country} />
+          <Weather country={country} />
+        </div>
+      )
     }
   }
 
