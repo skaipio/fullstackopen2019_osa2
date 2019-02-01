@@ -16,7 +16,7 @@ const Country = ({country}) => {
       <ul>
         {languageRows()}
       </ul>
-      <img src={country.flag} width="100" />
+      <img src={country.flag} width="100" alt="flag" />
     </div>
   );
 };

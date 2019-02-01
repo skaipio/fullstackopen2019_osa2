@@ -1,8 +1,21 @@
 import React from 'react';
 
-const Countries = ({countries}) => {
+const CountryRow = ({country, handleShowCountry}) => {
+  const showCountry = () => handleShowCountry(country)
+  return (
+    <div>
+      {country.name} <button onClick={showCountry}>show</button>
+    </div>
+  )
+}
+
+const Countries = ({countries, handleShowCountry}) => {
   const countryRows = () => countries.map(country =>
-    <div key={country.name}>{country.name}</div>
+    <CountryRow
+      key={country.name}
+      country={country}
+      handleShowCountry={handleShowCountry}
+    />
   )
   return (
     <div>

@@ -17,11 +17,14 @@ const App = () => {
       .then(response => {
         const countries = response.data
         setCountries(countries)
-        console.log(countries)
       })
   }
 
   useEffect(hook, [])
+
+  const showCountry = (country) => {
+    setCountryFilter(country.name)
+  }
 
   const filteredCountries = countries.filter(country => 
     country.name.toLowerCase().includes(countryFilter.toLowerCase(), 0)
@@ -33,7 +36,7 @@ const App = () => {
     }
 
     if (filteredCountries.length > 1) {
-      return <Countries countries={filteredCountries} />
+      return <Countries countries={filteredCountries} handleShowCountry={showCountry} />
     }
 
     if (filteredCountries.length === 1) {
