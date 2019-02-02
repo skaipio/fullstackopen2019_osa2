@@ -8,6 +8,12 @@ const create = (person) => (
     .then(response => response.data)
 )
 
+const remove = (personId) => (
+  axios
+    .delete(`${url}/persons/${personId}`)
+)
+
 export default {
-  create
+  create,
+  remove
 }

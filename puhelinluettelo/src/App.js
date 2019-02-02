@@ -45,6 +45,14 @@ const App = () => {
       })
   }
 
+  const removePerson = (id) => {
+    personService
+      .remove(id)
+      .then(() => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+  }
+
   const hook = () => {
     axios
       .get('http://localhost:3001/persons')
@@ -73,6 +81,7 @@ const App = () => {
       <Persons
         persons={persons}
         personFilter={personFilter}
+        handleRemove={removePerson}
       />
     </div>
   )
