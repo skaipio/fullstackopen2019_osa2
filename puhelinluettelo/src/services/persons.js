@@ -1,19 +1,26 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3001'
+const baseUrl = 'http://localhost:3001/persons'
 
 const create = (person) => (
   axios
-    .post(`${url}/persons`, person)
+    .post(`${baseUrl}`, person)
     .then(response => response.data)
 )
 
 const remove = (personId) => (
   axios
-    .delete(`${url}/persons/${personId}`)
+    .delete(`${baseUrl}/${personId}`)
+)
+
+const update = (id, person) => (
+  axios
+    .put(`${baseUrl}/${id}`, person)
+    .then(response => response.data)
 )
 
 export default {
   create,
-  remove
+  remove,
+  update
 }

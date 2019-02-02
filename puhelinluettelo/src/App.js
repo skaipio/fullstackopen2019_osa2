@@ -13,6 +13,13 @@ const App = () => {
   })
   const [ personFilter, setPersonFilter ] = useState('')
 
+  const resetNewPerson = () => {
+    setNewPerson({
+      name: '',
+      number: ''
+    })
+  }
+
   const handlePersonChange = (field, value) => {
     setNewPerson({
       ...newPerson,
@@ -27,22 +34,32 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
 
-    const indexofPerson = persons.findIndex(person => person.name === newPerson.name)
+    const existingPerson = persons.find(person => person.name === newPerson.name)
 
-    if (indexofPerson >= 0) {
-      alert(`${newPerson.name} on jo luettelossa`)
-      return
-    }
+    if (existingPerson) {
+      console.log('Found existing person', existingPerson)
+      const shouldReplace = window.confirm(`${newPerson.name} on jo luettelossa. Korvataanko vanha numero uudella?`)
+      
+      if (!shouldReplace) return
 
-    personService
+      personService
+        .update(existingPerson.id, newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.map(person =>
+            person.id === existingPerson.id
+            ? returnedPerson
+            : person
+          ))
+          resetNewPerson()
+        })
+    } else {
+      personService
       .create(newPerson)
       .then(person => {
         setPersons(persons.concat(person))
-        setNewPerson({
-          name: '',
-          number: ''
-        })
+        resetNewPerson()
       })
+    }
   }
 
   const removePerson = (id) => {
