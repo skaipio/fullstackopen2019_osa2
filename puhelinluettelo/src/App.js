@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons';
 import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -33,11 +34,15 @@ const App = () => {
       return
     }
 
-    setPersons(persons.concat(newPerson))
-    setNewPerson({
-      name: '',
-      number: ''
-    })
+    personService
+      .create(newPerson)
+      .then(person => {
+        setPersons(persons.concat(person))
+        setNewPerson({
+          name: '',
+          number: ''
+        })
+      })
   }
 
   const hook = () => {
