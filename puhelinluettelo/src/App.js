@@ -111,12 +111,9 @@ const App = () => {
   }
 
   const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        const persons = response.data
-        setPersons(persons)
-      })
+    personService
+      .getAll()
+      .then(persons => setPersons(persons))
   }
 
   useEffect(hook, [])
