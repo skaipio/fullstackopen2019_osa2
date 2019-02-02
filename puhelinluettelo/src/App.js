@@ -6,16 +6,17 @@ import axios from 'axios'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber ] = useState('')
+  const [ newPerson, setNewPerson ] = useState({
+    name: '',
+    number: ''
+  })
   const [ personFilter, setPersonFilter ] = useState('')
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
+  const handlePersonChange = (field, value) => {
+    setNewPerson({
+      ...newPerson,
+      [field]: value
+    })
   }
 
   const handlePersonFilterChange = (event) => {
@@ -25,20 +26,18 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
 
-    const indexofPerson = persons.findIndex(person => person.name === newName)
+    const indexofPerson = persons.findIndex(person => person.name === newPerson.name)
 
     if (indexofPerson >= 0) {
-      alert(`${newName} on jo luettelossa`)
+      alert(`${newPerson.name} on jo luettelossa`)
       return
     }
 
-    const newPerson = {
-      name: newName,
-      number: newNumber
-    }
     setPersons(persons.concat(newPerson))
-    setNewName('')
-    setNewNumber('')
+    setNewPerson({
+      name: '',
+      number: ''
+    })
   }
 
   const hook = () => {
@@ -62,10 +61,8 @@ const App = () => {
       <h3>lisää uusi</h3>
       <PersonForm
         handleSubmit={addPerson}
-        newName={newName}
-        newNumber={newNumber}
-        handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}
+        person={newPerson}
+        handleChange={handlePersonChange}
       />
       <h2>Numerot</h2>
       <Persons
